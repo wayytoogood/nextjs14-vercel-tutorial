@@ -5,7 +5,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 // Here res argument only have {params: type}so I'm not sure it's actual type.
 export const GET = async (req: Request, res: Response) => {
-  console.log('res', res);
   const tasks = await db.task.findMany({ orderBy: { createdAt: 'desc' } });
   // The Response interface of the Fetch API represents the response to a request.
   return Response.json({ data: tasks });
