@@ -4,6 +4,9 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// For migration npx prisma migrate dev --name $migration_name
+// For studio => npx prisma studio
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -23,3 +26,18 @@ model Task {
   createdAt DateTime @default(now())
   completed Boolean @default(false)
 }
+
+// *** FOR MAKING IT WORK WITH VERCEL
+// https://vercel.com/docs/storage/vercel-postgres/quickstart
+// https://vercel.com/docs/storage/vercel-postgres/using-an-orm
+// pnpm i @vercel/postgres  => **Actually we don't need to add postgres when we are using prisma.
+// pnpm i -g vercel@latest
+// vercel link => Link our local project with vercel server.
+// vercel env pull .env.development.local => It generates .env variables for database connection in vercel env pull .env.development.local file,
+// **keep in mind that npx prisma migrate uses .env file by default so it could be better to change the file name as ".env".
+// You need to change datasource db as used in this example.
+// And lastly we need to add this script below in package.json ->
+// "vercel-build": "prisma generate && prisma migrate deploy && next build",
+// ** If we change provider, vercel gives error on build => solution is remove migration folder and run npx prisma migrate dev
+// If we change anything in database we need to first run a migration by npx prisma migrate dev --name $migration_name, then run "prisma generate"
+// to update the generated type generations, which live in the node_modules/.prisma/client directory. That's why we are adding "vercel-build" script.

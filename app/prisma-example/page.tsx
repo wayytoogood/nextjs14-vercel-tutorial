@@ -1,32 +1,32 @@
 import prisma from '@/utils/db';
 
-const prismaHandler = async () => {
-  await prisma.task.create({
-    data: {
-      content: 'Wake Up!',
-    },
-  });
+// const prismaHandler = async () => {
+//   await prisma.task.create({
+//     data: {
+//       content: 'Wake Up!',
+//     },
+//   });
 
-  const tasks = await prisma.task.findMany({
-    orderBy: {
-      createdAt: 'desc',
-    },
-  });
+//   const tasks = await prisma.task.findMany({
+//     orderBy: {
+//       createdAt: 'desc',
+//     },
+//   });
 
-  return tasks;
-};
+//   return tasks;
+// };
 
 const PrismaExamplePage = async () => {
   // Every time components rendered, new task will create.
-  const tasks = await prismaHandler();
+  // const tasks = await prismaHandler();
 
   return (
     <main>
-      <ul>
+      {/* <ul>
         {tasks.map((task) => {
           return <li key={task.id}>{task.content}</li>;
         })}
-      </ul>
+      </ul> */}
     </main>
   );
 };

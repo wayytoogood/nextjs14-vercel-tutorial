@@ -41,7 +41,6 @@ export const generateTaskCustom = async (
   prevState: { message: string | null },
   formData: FormData
 ): Promise<{ message: string | null }> => {
-  await new Promise((res) => setTimeout(res, 2000));
   const content = formData.get('content') as string;
 
   // We are generating our schema as object.
@@ -67,13 +66,15 @@ export const deleteTask = async (
   prevState: { message: string },
   formData: FormData
 ) => {
-  await new Promise((res) => setTimeout(res, 2000));
   const id = formData.get('id') as string;
 
   try {
     await prisma.task.delete({ where: { id } });
     // when we add revalidatePath here it revalidates but probably due to reason that state is lost we can't update the form state.
     // so I believe we need to add router.refresh() to the client side component in this case since revalidatePath only works on server side(Example on DeleteForm).
+    // **But refresh doesn't work well with client component, most of the time it doesn't revalidate the page. I couldn't find the solution.
+    // Therefore turned back to the revalidatePath with no toast message update.
+    revalidatePath('/tasks');
     return { message: 'success' };
   } catch (error) {
     console.log(error);

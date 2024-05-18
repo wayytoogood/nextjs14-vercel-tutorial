@@ -29,7 +29,7 @@ const initialState = {
 export const TaskFormCustom = () => {
   // We need to use useFormState to update and retrieve form state after submit.
   // formAction gets formData as argument and pass it to the it's relative function with it's previous state,
-  //  so generateTaskCustom function will get prevState and fomData arguments(with this order).
+  // so generateTaskCustom function will get prevState and fomData arguments(with this order).
   const [formState, formAction] = useFormState(
     generateTaskCustom,
     initialState

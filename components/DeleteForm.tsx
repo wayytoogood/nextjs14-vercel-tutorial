@@ -30,9 +30,10 @@ const DeleteForm = ({ id }: { id: string }) => {
     if (formState.message === 'error') {
       toast.success("Could't deleted try again!");
     }
-    if (formState.message) {
-      router.refresh();
-    }
+    // Refresh doesn't revalidate the page most of the time here, therefore it's commented out.
+    // if (formState.message) {
+    //   router.refresh();
+    // }
   }, [formState, router]);
 
   return (
