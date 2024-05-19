@@ -21,8 +21,6 @@ const DeleteForm = ({ id }: { id: string }) => {
   const [formState, formAction] = useFormState(deleteTask, { message: '' });
   const router = useRouter();
 
-  console.log('formState', formState.message);
-
   useEffect(() => {
     if (formState.message === 'success') {
       toast.success('Successfully Deleted!');
